@@ -1,44 +1,25 @@
-import pathlib
+#!/usr/bin/env python
 
-from setuptools import find_packages, setup
-
-
-with open("README.md", "r") as fh:
-    long_description = fh.read()
-
-
-with open(str(pathlib.Path(__file__).parent.absolute()) +
-          "/flitton_fib_py/version.py", "r") as fh:
-    version = fh.read().split("=")[1].replace("'", "")
-
+from setuptools import dist
+dist.Distribution().fetch_build_eggs(['setuptools_rust'])
+from setuptools import setup
+from setuptools_rust import Binding, RustExtension
 
 setup(
-    name="flitton_fib_py",
-    version=version,
-    author="Maxwell Flitton",
-    author_email="maxwell@gmail.com",
-    description="Calculates a Fibonacci number",
-    long_description=long_description,
-    long_description_content_type="text/markdown",
-    url="https://github.com/maxwellflitton/flitton-fib-py",
-    install_requires=[
-        "PyYAML>=4.1.2",
-        "dill>=0.2.8"
-    ],
-    extras_require={
-     'server': ["Flask>=1.0.0"]
-    },
-    packages=find_packages(exclude=("tests",)),
+    name="flitton-fib-rs",
+    version="0.1",
+    rust_extensions=[RustExtension(
+        ".flitton_fib_rs.flitton_fib_rs",
+        path="Cargo.toml", binding=Binding.PyO3)],
+    packages=["flitton_fib_rs"],
     classifiers=[
-        "Development Status :: 4 - Beta",
-        "Programming Language :: Python :: 3",
-        "Operating System :: OS Independent",
-    ],
-    entry_points={
-        'console_scripts': [
-            'fib-number = flitton_fib_py.cmd.fib_numb:fib_numb',
+            "License :: OSI Approved :: MIT License",
+            "Development Status :: 3 - Alpha",
+            "Intended Audience :: Developers",
+            "Programming Language :: Python",
+            "Programming Language :: Rust",
+            "Operating System :: POSIX",
+            "Operating System :: MacOS :: MacOS X",
         ],
-    },
-    python_requires='>=3',
-    tests_require=['pytest'],
+    zip_safe=False,
 )
