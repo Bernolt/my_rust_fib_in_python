@@ -1,5 +1,5 @@
 use pyo3::prelude::*;
-use py03::wrap_pyfunction;
+use pyo3::wrap_pyfunction;
 
 #[pyfunction]
 fn say_hello() {
@@ -7,8 +7,7 @@ fn say_hello() {
 }
 
 #[pymodule]
-fn flitton_fib_rs(_py: Python, m: &PyModule) -> \
-PyResult<()> {
+fn flitton_fib_rs(_py: Python, m: &PyModule) -> PyResult<()> {
     m.add_wrapped(wrap_pyfunction!(sayhello));
     Ok(())
 }
