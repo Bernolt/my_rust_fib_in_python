@@ -8,6 +8,6 @@ fn say_hello() {
 
 #[pymodule]
 fn flitton_fib_rs(_py: Python, m: &PyModule) -> PyResult<()> {
-    m.add_wrapped(wrap_pyfunction!(sayhello));
+    m.add_wrapped(wrap_pyfunction!(say_hello));
     Ok(())
 }
