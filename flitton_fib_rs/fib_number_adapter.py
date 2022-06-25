@@ -15,6 +15,7 @@ class FlittonFibNumberAdapter:
     def _define_success(self) -> None:
         self.success = True
         self._counter.increase_count()
+
     def _process_input(self) -> None:
         if isinstance(self.input, int):
             self.result = fibonacci_number(n=self.input)
@@ -24,3 +25,7 @@ class FlittonFibNumberAdapter:
             self._define_success()
         else:
             self.error_message = "input needs to be a list of ints or an int"
+
+    @property
+    def count(self) -> int:
+        return self._counter.value
